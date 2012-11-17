@@ -78,11 +78,16 @@ public class cIP extends JavaPlugin implements Listener {
 			}
 		}
 		
-		
+
 		if(getConfig().getBoolean("numericIP") == true) {
 			this.logger.info("[cIP] - Numeric IP replace enabled ...");
 		} else {
 			this.logger.info("[cIP] - Numeric IP replace is disabled ...");
+		}
+		if(getConfig().getBoolean("domainIP") == true) {
+			this.logger.info("[cIP] - Domain IP censorship enabled ...");
+		} else {
+			this.logger.info("[cIP] - Domain IP censorship is disabled ...");
 		}
 		
 		
@@ -112,10 +117,9 @@ public class cIP extends JavaPlugin implements Listener {
 			msgEditOne = msgText;
 			
 		}
-		
+
 		if(getConfig().getBoolean("domainIP") == true) {
-			msgEditTwo = msgEditOne.replaceAll("", ChatColor.translateAlternateColorCodes('&', replacement));
-			
+			msgEditTwo = msgEditOne.replaceAll("([a-zA-Z0-9-]+\\.)*[a-zA-Z0-9-]+:[0-9]+", ChatColor.translateAlternateColorCodes('&', replacement));
 		} else {
 			msgEditTwo = msgEditOne;
 			
@@ -141,10 +145,10 @@ public class cIP extends JavaPlugin implements Listener {
 					sender.sendMessage(ChatColor.GREEN + "------------------------------------------------");
 					sender.sendMessage(ChatColor.GOLD + "  /cIP" + ChatColor.WHITE + " - Info about plugin");
 					sender.sendMessage(ChatColor.GOLD + "  /cIP reload" + ChatColor.WHITE + " - Reload plugin");
+					sender.sendMessage(ChatColor.GOLD + "  /cIP config" + ChatColor.WHITE + " - Shows loaded config");
 					sender.sendMessage(ChatColor.GREEN + "------------------------------------------------");
 					
-				}
-				if(args[0].equals("reload")) {
+				} else if(args[0].equals("reload")) {
 					String plugVer = pdfFile.getVersion();
 					String chatPrefix = getConfig().getString("chatPrefix");
 					
@@ -159,11 +163,19 @@ public class cIP extends JavaPlugin implements Listener {
 					this.reloadConfig();
 					
 					if(getConfig().getBoolean("numericIP") == true) {
-						this.logger.info("[cIP] - Debug System is enabled ...");
-						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP is enabled ...");
+						this.logger.info("[cIP] - Numeric IP censorship is enabled ...");
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP censorship is enabled ...");
 					} else {
-						this.logger.info("[cIP] - Debug System is disabled ...");
-						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP is disabled ...");
+						this.logger.info("[cIP] - Numeric IP censorship is disabled ...");
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP censorship is disabled ...");
+					}
+					
+					if(getConfig().getBoolean("domainIP") == true) {
+						this.logger.info("[cIP] - Domain IP censorship is enabled ...");
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Domain IP censorship is enabled ...");
+					} else {
+						this.logger.info("[cIP] - Domain IP censorship is disabled ...");
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Domain IP censorship is disabled ...");
 					}
 					
 					// reload end script
@@ -172,6 +184,27 @@ public class cIP extends JavaPlugin implements Listener {
 					this.logger.info("[cIP] Reload complete");	
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + ChatColor.GREEN + " Reload complete" + ChatColor.WHITE + "");
 					this.logger.info("------------------------------------------------");
+					sender.sendMessage(ChatColor.GREEN + "------------------------------------------------");
+					
+				} else if(args[0].equals("config")) {
+					String chatPrefix = getConfig().getString("chatPrefix");
+
+					this.logger.info("[PSB] Player '" + sender.getName() + "' used command /cIP config");	
+					sender.sendMessage(ChatColor.WHITE + "[" + ChatColor.GREEN + "Config cIP Plugin" + ChatColor.WHITE + "]");
+					sender.sendMessage(ChatColor.GREEN + "------------------------------------------------");
+					
+					if(getConfig().getBoolean("numericIP") == true) {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP is enabled ...");
+					} else {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Numeric IP is disabled ...");
+					}
+					
+					if(getConfig().getBoolean("domainIP") == true) {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Domain IP censorship is enabled ...");
+					} else {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', chatPrefix) + " - Domain IP censorship is disabled ...");
+					}
+					
 					sender.sendMessage(ChatColor.GREEN + "------------------------------------------------");
 					
 				}
