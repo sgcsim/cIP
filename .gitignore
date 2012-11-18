@@ -1,8 +1,8 @@
 *.class
 *.java
 *.yml
+*.jar
 
 # Package Files #
-*.jar
 *.war
 *.ear
