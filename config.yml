@@ -1,0 +1,35 @@
+#################################################
+##---------------------------------------------##
+##- Default configuration cIP plugin by P_S   -##
+##- www.ps-bred02.eu                          -##
+##---------------------------------------------##
+#################################################
+
+###### Prefix for chat info
+###### string with chat prefix (color codes are enabled)
+###### default: '&f[&acIP&f]'
+chatPrefix: '&f[&acIP&f]'
+
+###### Text which replace IP
+###### string with text replacement (color codes are enabled)
+###### default: '&f(&cCensored&f)'
+chatReplacement: '&f(&cCensored&f)'
+
+###### Replace numeric IP (XXX.XXX.XXX.XXX / XXX.XXX.XXX.XXX:XXXXX)
+###### false = disabled, true = enbaled
+###### default: true
+numericIP: true
+
+###### Replace domain IP (xxxxxxxx.xx:XXXXX)
+###### false = disabled, true = enbaled
+###### default: true
+domainIP: true
+
+
+
+###### Plugin version | Provides info for plugin and auto update system
+###### number string X.X.X
+######
+######  Do not edit !!!
+######
+version: 0.2
